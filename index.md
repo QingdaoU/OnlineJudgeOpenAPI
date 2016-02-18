@@ -171,4 +171,4 @@ result的对应关系
 }
 ```
 
-
+注意回调的token和appkey并没有关系，这个token只能一次性使用。
