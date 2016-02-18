@@ -845,7 +845,7 @@ c:[{cN:"comment",b:/\(\*/,e:/\*\)/},e.ASM,e.QSM,e.CNM,{cN:"list",b:/\{/,e:/\}/,i
 <style> @media print{ .hljs{overflow: visible; word-wrap: break-word !important;} }</style></head><body><div class="markdown-body">
 <h1 id="toc_0">OnlineJudgeOpenAPI文档</h1>
 
-<p>为了方便与 Virtual Judge 进行集成，开放了获取题目详细信息、提交代码和获取代码运行结果三个API。</p>
+<p>为了方便与Virtual Judge和第三方论坛等进行集成，开放了获取题目详细信息、提交代码、获取代码运行结果和用户SSO单点登录四个API。</p>
 
 <p>在使用API之前，请先申请appkey，在个人设置页面可以看到，如果没有申请过，请联系OJ的管理员在后台开通。</p>
 
@@ -983,6 +983,33 @@ c:[{cN:"comment",b:/\(\*/,e:/\*\)/},e.ASM,e.QSM,e.CNM,{cN:"list",b:/\{/,e:/\}/,i
     &quot;wrong_answer&quot;: 6,
     &quot;system_error&quot;: 7,
     &quot;waiting&quot;: 8
+}
+</code></pre>
+
+<h2 id="toc_5">SSO单点登录</h2>
+
+<p><strong>request</strong> <code>GET</code> <code>/account/sso/?callback=&lt;callback_url&gt;</code></p>
+
+<p>然后用户确认登录之后，会跳转到<code>http://callback_url?token=&lt;string&gt;</code>上，需要获取token参数，然后</p>
+
+<p><strong>request</strong> <code>POST</code> <code>/account/sso/</code></p>
+
+<pre><code class="language-js">{
+    &quot;appkey&quot;: &quot;example_appkey&quot;,
+    &quot;token&quot;: &quot;example_token&quot;
+}
+</code></pre>
+
+<p><strong>response</strong></p>
+
+<pre><code class="language-js">{
+    &quot;code&quot;: 0,
+    &quot;data&quot;: {
+        &quot;username&quot;: &quot;root&quot;,
+        &quot;admin_type&quot;: 2,
+        &quot;id&quot;: 1,
+        &quot;avatar&quot;: &quot;/static/img/avatar/avatar-10.png&quot;
+    }
 }
 </code></pre>
 

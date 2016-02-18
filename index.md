@@ -1,6 +1,6 @@
 # OnlineJudgeOpenAPI文档
 
-为了方便与 Virtual Judge 进行集成，开放了获取题目详细信息、提交代码和获取代码运行结果三个API。
+为了方便与Virtual Judge和第三方论坛等进行集成，开放了获取题目详细信息、提交代码、获取代码运行结果和用户SSO单点登录四个API。
 
 在使用API之前，请先申请appkey，在个人设置页面可以看到，如果没有申请过，请联系OJ的管理员在后台开通。
 
@@ -140,6 +140,34 @@ result的对应关系
     "wrong_answer": 6,
     "system_error": 7,
     "waiting": 8
+}
+```
+
+##SSO单点登录
+**request** `GET` `/account/sso/?callback=<callback_url>`
+
+然后用户确认登录之后，会跳转到`http://callback_url?token=<string>`上，需要获取token参数，然后
+
+**request** `POST` `/account/sso/`
+
+```js
+{
+    "appkey": "example_appkey",
+    "token": "example_token"
+}
+```
+
+**response**
+
+```js
+{
+    "code": 0,
+    "data": {
+        "username": "root",
+        "admin_type": 2,
+        "id": 1,
+        "avatar": "/static/img/avatar/avatar-10.png"
+    }
 }
 ```
 
